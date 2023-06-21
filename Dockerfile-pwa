@@ -36,7 +36,7 @@ WORKDIR /padloc/packages/pwa
 # Build the application
 ENTRYPOINT ["npm", "run"]
 
-CMD ["build_and_start"]
+CMD ["build"]
 
 FROM node:16-bullseye
 
