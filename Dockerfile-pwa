@@ -1,5 +1,7 @@
 FROM node:16-bullseye as builder
 
+EXPOSE 8080
+
 WORKDIR /padloc
 
 # Only copy over the packages files of all required packages.
@@ -32,16 +34,16 @@ COPY assets /assets
 WORKDIR /padloc/packages/pwa
 
 # Build the application
-RUN npm run build
+ENTRYPOINT ["npm", "run"]
+
+CMD ["build_and_start"]
 
 FROM node:16-bullseye
-
-EXPOSE 8080
 
 WORKDIR /padloc/packages/pwa
 
 # Copy only the build artifacts from the previous stage
-COPY --from=builder /padloc/packages/pwa/dist ./dist
+COPY --from=builder /padloc/packages/pwa/ .
 
 ENTRYPOINT ["npm"]
 
